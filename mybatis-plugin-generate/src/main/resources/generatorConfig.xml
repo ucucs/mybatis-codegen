@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+  "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+  <properties resource="generator.properties"/>
+  <classPathEntry location="${jdbc.driverLocation}"/>
+  <context id="default" targetRuntime="MyBatis3">
+    <property name="autoDelimitKeywords" value="false"/>
+
+    <!-- 指明数据库的用于标记数据库对象名的符号，如ORACLE是双引号"，MYSQL是反引号` -->
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+
+    <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
+    <!--<plugin type="org.mybatis.generator.plugins.BaseImportPlugin"/>-->
+    <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />-->
+    <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>-->
+    <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+    <commentGenerator> <!--若自定义注释，可添加属性 type="com.gqlofe.MyCommentGenerator"  MyCommentGenerator类自定义，继承DefaultCommentGenerator-->
+      <property name="javaFileEncoding" value="UTF-8"/>
+      <property name="suppressDate" value="true"/>
+      <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    <jdbcConnection driverClass="${jdbc.driverClass}"
+      connectionURL="${jdbc.connectionURL}" userId="${jdbc.userId}"
+      password="${jdbc.password}"/>
+    <javaTypeResolver>
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+
+    <!--生成Model类存放位置-->
+    <javaModelGenerator targetPackage="${entityPath}" targetProject="${basePath}">
+      <property name="constructorBased" value="false"/>
+      <property name="enableSubPackages" value="true"/>
+      <property name="trimStrings" value="true"/>
+      <property name="immutable" value="false"/>
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="${packagePath}" targetProject="${basePath}">
+      <property name="enableSubPackages" value="true"/>
+    </sqlMapGenerator>
+
+    <javaClientGenerator targetPackage="${packagePath}" targetProject="${basePath}"
+      type="XMLMAPPER">
+      <property name="enableSubPackages" value="true"/>
+      <property name="exampleMethodVisibility" value="default"/>
+      <property name="methodNameCalculator" value="default"/>
+      <!--<property name="rootInterface" value=""/>-->
+      <property name="useLegacyBuilder" value="false"/>
+    </javaClientGenerator>
+
+    <!-- 配置需要生成代码的数据库&表结构信息，如果多张表生成代码赋值多次填写即可 -->
+    <table schema="push" tableName="${tableName}" domainObjectName="${domainObjectName}"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false"
+      enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableInsert="true"
+      enableDeleteByPrimaryKey="true"
+    />
+
+  </context>
+</generatorConfiguration>
