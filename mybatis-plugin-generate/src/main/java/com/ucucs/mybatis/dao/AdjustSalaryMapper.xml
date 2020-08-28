@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ucucs.mybatis.dao.AdjustSalaryMapper">
+  <resultMap id="BaseResultMap" type="com.ucucs.mybatis.entity.AdjustSalary">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="as_date" jdbcType="DATE" property="asDate" />
+    <result column="before_salary" jdbcType="INTEGER" property="beforeSalary" />
+    <result column="after_salary" jdbcType="INTEGER" property="afterSalary" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, as_date, before_salary, after_salary, reason, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adjust_salary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from adjust_salary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ucucs.mybatis.entity.AdjustSalary">
+    insert into adjust_salary (id, as_date, before_salary, 
+      after_salary, reason, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{asDate,jdbcType=DATE}, #{beforeSalary,jdbcType=INTEGER}, 
+      #{afterSalary,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucucs.mybatis.entity.AdjustSalary">
+    insert into adjust_salary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="asDate != null">
+        as_date,
+      </if>
+      <if test="beforeSalary != null">
+        before_salary,
+      </if>
+      <if test="afterSalary != null">
+        after_salary,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="asDate != null">
+        #{asDate,jdbcType=DATE},
+      </if>
+      <if test="beforeSalary != null">
+        #{beforeSalary,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalary != null">
+        #{afterSalary,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucucs.mybatis.entity.AdjustSalary">
+    update adjust_salary
+    <set>
+      <if test="asDate != null">
+        as_date = #{asDate,jdbcType=DATE},
+      </if>
+      <if test="beforeSalary != null">
+        before_salary = #{beforeSalary,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalary != null">
+        after_salary = #{afterSalary,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucucs.mybatis.entity.AdjustSalary">
+    update adjust_salary
+    set as_date = #{asDate,jdbcType=DATE},
+      before_salary = #{beforeSalary,jdbcType=INTEGER},
+      after_salary = #{afterSalary,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
